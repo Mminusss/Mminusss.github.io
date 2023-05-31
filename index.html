@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>集中告警处理登记</title>
+	</head>
+	<body bgcolor="pink">
+
+		<h2 align="center">集中告警处理登记</h2>
+
+		<form align="center" name="f">
+			UUID：<input type="text" name="suuid" size="25" maxlength="20" /> <br><br>
+			<label for="name">项目名称</label>
+			<select id="spro" name="sname">
+				<option value="beifangjiankang">---请选择项目---</option>
+				<option value="beifangjiankang">北方健康</option>
+				<option value="lianren">联仁</option>
+				<option value="yunanbaiyao">云南白药</option>
+			</select><br/><br/><br/><br/>
+			<input type="button" value="提  交" name="btn" onclick="tijiao()" />
+			<input type="reset" value="重  置" name="res" />
+		</form>
+
+		<!--
+        	编写脚本获取到每一个输入框中的值，并传递到teststudent库中student表中做存储
+        -->
+
+		<script language="JavaScript">
+			//声明一个提交方法
+			function tijiao() {
+				//获取每个输入框的值
+				//uuid
+				var suuidvalue = f.suuid.value;
+
+				//姓名
+				var snamevalue = f.sname.value;
+
+
+
+				//获取到每个值之后，借助于框架来传递
+				//借助于框架进行传递XMLHttpRequest 对象用于在后台与服务器交换数据
+				url = 'http://127.0.0.1:5000/add'
+				var request = new XMLHttpRequest()
+				request.open('post', url, true)
+				request.onload = function() {
+					resp_text = request.responseText
+					print(resp_text)
+				}
+				var formdata = new FormData()
+				formdata.append('suuid', suuidvalue)
+				formdata.append('sname', snamevalue)
+
+				request.send(formdata)
+
+			}
+
+		</script>
+
+	</body>
+
+</html>
